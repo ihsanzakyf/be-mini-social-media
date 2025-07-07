@@ -81,6 +81,13 @@ class PostController extends Controller
             ], 404);
         }
 
+        if (!Post::find($request->id)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Post not found',
+            ], 404);
+        }
+
         return response()->json([
             'success' => true,
             'message' => 'Post retrieved successfully',
@@ -113,6 +120,13 @@ class PostController extends Controller
             ], 400);
         }
 
+        if (!Post::find($id)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Post not found',
+            ], 404);
+        }
+
         $post = Post::find($id);
         $post->content = $request->content;
         $post->image_url = $request->image_url;
@@ -131,6 +145,13 @@ class PostController extends Controller
      */
     public function destroy(string $id)
     {
+        if (!Post::find($id)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Post not found',
+            ], 404);
+        }
+
         Post::destroy($id);
 
         return response()->json([
